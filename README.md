@@ -1,5 +1,6 @@
 🛒 Amazon Web Scraping
 Script Python para extrair informações de produtos da Amazon de forma automatizada.
+
 📋 Descrição
 Este projeto realiza web scraping na Amazon para coletar informações de produtos, incluindo:
 
@@ -9,7 +10,6 @@ Preço parcelado
 Avaliação dos clientes
 
 🚀 Tecnologias Utilizadas
-
 Python 3.x
 requests - Para fazer requisições HTTP
 BeautifulSoup4 - Para parsing de HTML
@@ -21,11 +21,13 @@ bashgit clone https://github.com/rubiamassaud/web-scraping.git
 cd web-scraping
 2. Instale as dependências
 bashpip install -r requirements.txt
+
 💻 Como Usar
 Uso Básico
 bashpython amazon-web-scraping-melhorado.py
 Uso com URL Personalizada
 bashpython amazon-web-scraping-melhorado.py "https://a.co/d/sua-url-aqui"
+
 📊 Exemplo de Saída
 🔍 Buscando informações de: https://a.co/d/2upF4gx
 ✅ Requisição bem sucedida!
@@ -42,8 +44,8 @@ bashpython amazon-web-scraping-melhorado.py "https://a.co/d/sua-url-aqui"
 ============================================================
 
 💾 Deseja salvar os dados em um arquivo? (s/n):
-🔧 Funcionalidades
 
+🔧 Funcionalidades
 ✅ Tratamento de erros robusto
 ✅ Encoding UTF-8 para caracteres especiais
 ✅ Headers customizados para evitar bloqueios
@@ -56,13 +58,12 @@ bashpython amazon-web-scraping-melhorado.py "https://a.co/d/sua-url-aqui"
 📁 Estrutura do Projeto
 web-scraping/
 │
-├── amazon-web-scraping.py              # Versão original
-├── amazon-web-scraping-melhorado.py    # Versão melhorada
+├── amazon-web-scraping.py    # Versão original
 ├── requirements.txt                     # Dependências do projeto
 └── README.md                           # Documentação
+
 ⚠️ Aviso Legal
 Este projeto é apenas para fins educacionais. Ao fazer web scraping:
-
 Respeite o robots.txt do site
 Não sobrecarregue os servidores com muitas requisições
 Verifique os Termos de Serviço da Amazon
@@ -70,7 +71,6 @@ Use delays entre requisições
 Considere usar APIs oficiais quando disponíveis
 
 🔮 Melhorias Futuras
-
  Suporte para múltiplos produtos
  Exportação para CSV/JSON
  Monitoramento de preços ao longo do tempo
@@ -80,12 +80,6 @@ Considere usar APIs oficiais quando disponíveis
 
 🤝 Contribuindo
 Contribuições são bem-vindas! Sinta-se à vontade para:
-
-Fazer um fork do projeto
-Criar uma branch para sua feature (git checkout -b feature/NovaFuncionalidade)
-Commit suas mudanças (git commit -m 'Adiciona nova funcionalidade')
-Push para a branch (git push origin feature/NovaFuncionalidade)
-Abrir um Pull Request
 
 📝 Licença
 Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
