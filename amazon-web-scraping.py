@@ -1,4 +1,4 @@
- # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """
 Amazon Web Scraping
 Script para extrair informações de produtos da Amazon
@@ -8,6 +8,8 @@ import requests as rq
 from bs4 import BeautifulSoup as bs
 import time
 import sys
+import csv
+import os
 
 
 # Configurações globais
@@ -138,22 +140,24 @@ def exibir_dados(dados):
     print("="*60 + "\n")
 
 
-def salvar_dados(dados, arquivo='produto_amazon.txt'):
+def salvar_dados(dados, arquivo='produto_amazon.csv'):
     """
-    Salva os dados em um arquivo de texto
+    Salva os dados em um arquivo CSV
     
     Args:
         dados (dict): Dicionário com os dados do produto
         arquivo (str): Nome do arquivo para salvar
     """
     try:
-        with open(arquivo, 'w', encoding='utf-8') as f:
-            f.write("INFORMACOES DO PRODUTO - AMAZON\n")
-            f.write("="*60 + "\n\n")
-            f.write(f"Produto: {dados.get('produto', 'N/A')}\n")
-            f.write(f"Preco a vista: {dados.get('preco_vista', 'N/A')}\n")
-            f.write(f"Preco parcelado: {dados.get('preco_parcelado', 'N/A')}\n")
-            f.write(f"Avaliacao: {dados.get('avaliacao', 'N/A')}\n")
+        # Se o arquivo já existe, apenas adiciona uma linha (append)
+        # Se não existe, cria com cabeçalho
+        mode = 'a' if os.path.exists(arquivo) else 'w'
+
+        with open(arquivo, mode, newline='', encoding='utf-8') as f:
+            writer = csv.DictWriter(f, fieldnames=dados.keys())
+            if mode == 'w':
+                writer.writeheader()
+            writer.writerow(dados)
         
         print(f"[OK] Dados salvos em: {arquivo}")
         
@@ -192,9 +196,9 @@ def main():
     # Pergunta se deseja salvar
     salvar = input("Deseja salvar os dados em um arquivo? (s/n): ").lower()
     if salvar == 's':
-        nome_arquivo = input("Nome do arquivo (pressione Enter para usar 'produto_amazon.txt'): ").strip()
+        nome_arquivo = input("Nome do arquivo (pressione Enter para usar 'produto_amazon.csv'): ").strip()
         if not nome_arquivo:
-            nome_arquivo = 'produto_amazon.txt'
+            nome_arquivo = 'produto_amazon.csv'
         salvar_dados(dados, nome_arquivo)
     
     print("\n[OK] Scraping concluido!")
