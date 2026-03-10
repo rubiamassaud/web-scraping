@@ -19,7 +19,8 @@ time - Para adicionar delays entre requisições
 1. Clone o repositório
 bashgit clone https://github.com/rubiamassaud/web-scraping.git
 cd web-scraping
-2. Instale as dependências
+
+3. Instale as dependências
 bashpip install -r requirements.txt
 
 💻 Como Usar
