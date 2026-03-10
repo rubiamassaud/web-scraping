@@ -1,96 +1,123 @@
-🛒 Amazon Web Scraping
-Script Python para extrair informações de produtos da Amazon de forma automatizada.
+# 🛒 Amazon Web Scraping
 
-📋 Descrição
-Este projeto realiza web scraping na Amazon para coletar informações de produtos, incluindo:
+Script para extração automatizada de informações de produtos da Amazon, com suporte a exportação em CSV.
 
-Nome do produto
-Preço à vista
-Preço parcelado
-Avaliação dos clientes
+---
 
-🚀 Tecnologias Utilizadas
-Python 3.x
-requests - Para fazer requisições HTTP
-BeautifulSoup4 - Para parsing de HTML
-time - Para adicionar delays entre requisições
+## 💡 Como funciona
 
-📦 Instalação
-1. Clone o repositório
-bashgit clone https://github.com/rubiamassaud/web-scraping.git
-cd web-scraping
+1. Recebe a URL de um produto da Amazon
+2. Faz a requisição HTTP simulando um navegador real (headers configurados)
+3. Faz o parse do HTML com BeautifulSoup
+4. Extrai título, preço à vista, preço parcelado e avaliação
+5. Exibe os dados formatados e oferece a opção de salvar em CSV
 
-3. Instale as dependências
-bashpip install -r requirements.txt
+---
 
-💻 Como Usar
-Uso Básico
-bashpython amazon-web-scraping-melhorado.py
-Uso com URL Personalizada
-bashpython amazon-web-scraping-melhorado.py "https://a.co/d/sua-url-aqui"
+## 🗂️ Estrutura do projeto
 
-📊 Exemplo de Saída
-🔍 Buscando informações de: https://a.co/d/2upF4gx
-✅ Requisição bem sucedida!
-
-📦 Extraindo dados do produto...
-
-============================================================
-📊 INFORMAÇÕES DO PRODUTO
-============================================================
-🏷️  Produto: Echo Dot (5ª Geração) | O Echo Dot com o melhor som...
-💰 Preço à vista: R$ 399,00
-💳 Preço parcelado: 10x de R$ 39,90
-⭐ Avaliação: 4,5 de 5 estrelas
-============================================================
-
-💾 Deseja salvar os dados em um arquivo? (s/n):
-
-🔧 Funcionalidades
-✅ Tratamento de erros robusto
-✅ Encoding UTF-8 para caracteres especiais
-✅ Headers customizados para evitar bloqueios
-✅ Funções organizadas e reutilizáveis
-✅ Opção de salvar dados em arquivo
-✅ Timeout em requisições
-✅ Delays para não sobrecarregar o servidor
-✅ Mensagens informativas com emojis
-
-📁 Estrutura do Projeto
-web-scraping/
+```
+amazon-web-scraping/
 │
-├── amazon-web-scraping.py    # Versão original
-├── requirements.txt                     # Dependências do projeto
-└── README.md                           # Documentação
+├── amazon_scraping.py     # Script principal
+├── produto_amazon.csv     # Arquivo de saída gerado após execução (opcional)
+└── README.md
+```
 
-⚠️ Aviso Legal
-Este projeto é apenas para fins educacionais. Ao fazer web scraping:
-Respeite o robots.txt do site
-Não sobrecarregue os servidores com muitas requisições
-Verifique os Termos de Serviço da Amazon
-Use delays entre requisições
-Considere usar APIs oficiais quando disponíveis
+---
 
-🔮 Melhorias Futuras
- Suporte para múltiplos produtos
- Exportação para CSV/JSON
- Monitoramento de preços ao longo do tempo
- Notificações quando o preço cair
- Interface gráfica (GUI)
- Suporte para outras lojas online
+## ⚙️ Instalação
 
-🤝 Contribuindo
-Contribuições são bem-vindas! Sinta-se à vontade para:
+**1. Clone o repositório**
+```bash
+git clone https://github.com/rubiamassaud/web-scraping.git
+cd web-scraping
+```
 
-📝 Licença
-Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
+**2. Crie e ative um ambiente virtual**
+```bash
+python -m venv venv
+source venv/bin/activate      # Linux/macOS
+venv\Scripts\activate         # Windows
+```
 
-👩‍💻 Autora
-Rubia Massaud
+**3. Instale as dependências**
+```bash
+pip install requests beautifulsoup4
+```
 
-GitHub: @rubiamassaud
+---
 
-📞 Contato
-Se você tiver dúvidas ou sugestões, sinta-se à vontade para abrir uma issue no GitHub!
+## ▶️ Uso
 
-⭐ Se este projeto foi útil para você, considere dar uma estrela!
+**URL padrão (definida no script):**
+```bash
+python amazon_scraping.py
+```
+
+**URL personalizada via argumento:**
+```bash
+python amazon_scraping.py "https://www.amazon.com.br/dp/seu-produto"
+```
+
+**Saída esperada:**
+```
+[INFO] Buscando informacoes de: https://...
+[OK] Requisicao bem sucedida!
+
+[INFO] Extraindo dados do produto...
+
+============================================================
+INFORMACOES DO PRODUTO
+============================================================
+Produto: Nome do produto
+Preco a vista: R$ 199,90
+Preco parcelado: 10x R$ 19,99
+Avaliacao: 4,5 de 5 estrelas
+============================================================
+
+Deseja salvar os dados em um arquivo? (s/n):
+```
+
+---
+
+## 📦 Dados extraídos
+
+| Campo | Descrição |
+|---|---|
+| `produto` | Título completo do produto |
+| `preco_vista` | Preço à vista |
+| `preco_parcelado` | Melhor oferta parcelada |
+| `avaliacao` | Nota de avaliação dos compradores |
+
+---
+
+## 📋 Detalhes técnicos
+
+- **Headers customizados** — User-Agent, Accept-Language e Referer configurados para simular um navegador real e reduzir bloqueios
+- **Seletores centralizados** — todos os seletores CSS/ID ficam em um dicionário `SELECTORS`, facilitando manutenção quando a Amazon atualiza o layout
+- **Extração segura** — função `extrair_texto_seguro` trata exceções elemento a elemento, evitando que a falha em um campo interrompa toda a coleta
+- **CSV incremental** — ao salvar, o script detecta se o arquivo já existe e adiciona uma linha (`append`), preservando coletas anteriores
+
+---
+
+## ⚠️ Aviso
+
+Este projeto foi desenvolvido para fins educacionais. Ao utilizar, respeite os [Termos de Uso da Amazon](https://www.amazon.com.br/gp/help/customer/display.html?nodeId=201909000) e evite requisições em volume ou frequência que possam sobrecarregar os servidores.
+
+---
+
+## 📦 Dependências
+
+```
+requests
+beautifulsoup4
+```
+
+---
+
+## 🤖 Tecnologias
+
+- **Python 3.10+**
+- **Requests** — requisições HTTP
+- **BeautifulSoup4** — parse e extração de HTML
